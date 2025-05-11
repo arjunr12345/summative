@@ -1,0 +1,48 @@
+/* ErrorView.css */
+
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f8ff; /* Light background */
+    color: #333; /* Neutral text color */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+.error-title {
+    font-size: 3rem; /* Larger title */
+    font-weight: bold;
+    color: #0078d4; /* Accent color */
+    margin-bottom: 15px;
+}
+
+.error-message {
+    font-size: 1.5rem; /* Slightly larger text */
+    margin-bottom: 25px;
+    color: #555; /* Softer text color */
+}
+
+.error-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.error-button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #0078d4; /* Accent color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.error-button:hover {
+    background-color: #005a9e; /* Darker hover color */
+}

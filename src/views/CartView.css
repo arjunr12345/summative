@@ -1,0 +1,33 @@
+.cart-view {
+    margin: 80px;
+}
+
+.cart-view .item-container {
+    display: grid;
+    padding-bottom: 80px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.cart-view .cart-item {
+    width: 100px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.cart-view .movie-poster {
+    width: 100px;
+    padding: 10px 0;
+}
+
+.cart-view button {
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+    background-color: red;
+    color: white;
+    font-size: 1rem;
+    border: 0;
+    border-radius: 100px;
+}

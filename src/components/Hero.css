@@ -1,0 +1,71 @@
+.hero {
+    height: 1000px;
+    position: relative; /* Added to position the image inside the hero */
+}
+
+.hero img {
+    position: absolute;
+    top: 50%; /* Vertically center */
+    left: 50%; /* Horizontally center */
+    transform: translate(-50%, -50%); /* Adjusts the image position to be exactly centered */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 100%;
+    z-index: -1;
+}
+
+.hero h1 {
+    font-size: 6rem;
+}
+
+.hero p {
+    font-size: 2rem;
+    padding: 30px;
+}
+
+.hero-content {
+    padding: 300px 0px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+/* landscape tablets */
+@media screen and (max-width: 1200px) {
+    .hero-content {
+        padding: 300px 20px 0px 20px;
+    }
+}
+
+/* portrait tablets */
+@media screen and (max-width: 860px) {
+    .hero-content {
+        padding: 160px 20px 0px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 5rem;
+    }
+}
+
+/* phones */
+@media screen and (max-width: 600px) {
+    .hero {
+        height: auto;
+    }
+
+    .hero-content {
+        padding: 90px 0px;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+}

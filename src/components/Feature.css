@@ -1,0 +1,45 @@
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 0, 72);
+    padding: 80px;
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+}
+
+.feature img {
+    width: 360px;
+}
+
+.movies {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.movies img {
+    margin: 20px;
+    min-width: 0;
+}
+
+/* portrait tablets */
+@media screen and (max-width: 860px) {
+    .movies {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .movies img {
+        width: 300px;
+    }
+}
+
+/* phones */
+@media screen and (max-width: 600px) {
+    .movies img {
+        width: 200px;
+    }
+}

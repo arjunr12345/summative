@@ -1,0 +1,39 @@
+.genre-view img {
+    width: 200px;
+    height: 300px;
+}
+
+.genre-view .buy-button {
+    padding: 10px;
+    height: 40px;
+    border-radius: 10%;
+    border: 0;
+    background-color: red;
+    color: white;
+    margin: 10px;
+    font-weight: 900;
+}
+
+.genre-view .page-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: 0;
+    background-color: red;
+    margin: 10px;
+    font-weight: 900;
+}
+
+.genre-view .movie {
+    width: 200px;
+    margin: 20px;
+}
+
+.genre-view {
+    width: 100%;
+}
+
+.genre-view .movies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}

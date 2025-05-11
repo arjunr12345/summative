@@ -1,0 +1,11 @@
+.genres {
+    display: flex;
+    flex-direction: column;
+    padding: 100px;
+}
+
+a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}

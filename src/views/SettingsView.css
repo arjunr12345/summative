@@ -1,0 +1,13 @@
+.settings-view button {
+    background-color: red;
+    color: white;
+    border: none;
+    margin: 20px 0;
+    height: 30px;
+    border-radius: 3px;
+}
+
+.settings-view .form {
+    display: flex;
+    flex-direction: column;
+}
