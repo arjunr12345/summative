@@ -1,12 +1,14 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { Map } from 'immutable';
+import { doc, getDoc } from "firebase/firestore"; 
+import { firestore } from "../firebase/index.js"
 
 const StoreContext = createContext();
 
 export const StoreProvider = ({ children }) => {
-    const [email, setEmail] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [user, setUser] = useState({});
+    const [cart, setCart] = useState(Map());
+    const [purchases, setPurchases] = useState(Map());
     const [genres, setGenres] = useState([
         {
             genre: "Action",
@@ -64,10 +66,49 @@ export const StoreProvider = ({ children }) => {
             checked: false
         }
     ]);
-    const [cart, setCart] = useState(Map());
+
+    const readGenres = async () => {
+        if (user.uid) {
+            const docRef = doc(firestore, "users", user.uid);
+            const data = (await getDoc(docRef)).data();
+            setGenres(data.genres);
+        }
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem(user.uid) != "{}" && cart == Map()) {
+            const localCart = JSON.parse(localStorage.getItem(user.uid));
+            for (const key in localCart) {
+                setCart((prevCart) => prevCart.set(Number(key), JSON.parse(JSON.stringify(localCart[key]))));
+            }
+        }
+    });
+    
+    useEffect(() => {
+        if (localStorage.getItem("user")) {
+            setUser(JSON.parse(localStorage.getItem("user")));
+            readGenres();
+        }
+    }, [user.uid]);
+    
+    useEffect(() => {
+        if (user.uid) {
+            getPurchasedMovies();
+        }
+    }, [user.uid])
+    
+    const getPurchasedMovies = async () => {
+        if ((await getDoc(doc(firestore, "users", user.uid))).data().purchasedMovies) {
+            const movies = (await getDoc(doc(firestore, "users", user.uid))).data().purchasedMovies;
+            setPurchases(Map());
+            for (const key in movies) {
+                setPurchases((prev) => prev.set(Number(key), JSON.parse(JSON.stringify(movies[key]))));
+            }
+        }
+    }
 
     return (
-        <StoreContext.Provider value={{ email, setEmail, firstName, setFirstName, lastName, setLastName, genres, setGenres, cart, setCart }}>
+        <StoreContext.Provider value={{ user, setUser, genres, setGenres, cart, setCart, purchases, setPurchases }}>
             {children}
         </StoreContext.Provider>
     );

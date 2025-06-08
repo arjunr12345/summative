@@ -1,55 +1,49 @@
 import { useNavigate } from "react-router-dom";
 import { useStoreContext } from "../context";
+import { auth } from "../firebase/index.js";
 import "./Header.css"
-import { useState } from "react";
 
 const Header = () => {
-    const { email, firstName } = useStoreContext();
+    const { user, setUser } = useStoreContext();
     const navigate = useNavigate();
-    const [searchQuery, setSearchQuery] = useState("");
 
-    const handleSearch = (e) => {
-        if (e.key === "Enter" && searchQuery.trim() !== "") {
-            navigate(`/movies/search?q=${encodeURIComponent(searchQuery.trim())}`);
-        }
-    };
+    const logOut = () => {
+        auth.signOut();
+        navigate("/");
+        localStorage.removeItem("user"); 
+        window.location.reload(false);
+    }
 
     const loginButtons = () => {
-        if (email === "") {
+        if (user.email == null) {
             return (
                 <>
                     <a href="/login">Log In</a>
                     <a href="/register">Sign Up</a>
                 </>
-            );
+            )
         } else {
             return (
                 <>
-                    <p>{`Hello, ${firstName}!`}</p>
+                    <p>{`Hello, ${(user.displayName.split(" "))[0]}!`}</p>
                     <button onClick={() => navigate("/cart")}>Cart</button>
                     <button onClick={() => navigate("/settings")}>Settings</button>
-                    <a href="/">Log Out</a>
-                    <input
-                        type="text"
-                        placeholder="Search movies..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={handleSearch}
-                        className="search-input"
-                    />
+                    <button onClick={() => logOut()}>Log Out</button>
                 </>
-            );
+            )
         }
-    };
+    }
 
     return (
         <div className="header">
-            <a href="/">Dolor™ Stream</a>
+            <a href="/">
+                <img src={logo} alt="Dollor Stream" />
+            </a>
             <div className="navbar-container">
                 {loginButtons()}
             </div>
         </div>
     );
-};
+}
 
 export default Header;
