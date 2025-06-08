@@ -26,32 +26,42 @@ const RegisterView = () => {
                 genresSelected++;
             }
         }
-        if (genresSelected < 10) {
+        if (genresSelected < 5) {
             return false;
         } else {
             return true;
         }
     }
 
-    const registerByEmail = async () => {
-        try {
-            const userObj = (await createUserWithEmailAndPassword(auth, email, pass1)).user;
-            await updateProfile(userObj, { displayName: `${firstName} ${lastName}` });
-            setUser(userObj);
-            localStorage.setItem("user", JSON.stringify(userObj));
-            await setDoc(doc(firestore, "users", userObj.uid), {
-                genres: genres
-            });
-            navigate('/movies');
-        } catch (error) {
-            console.log(error);
-            alert("Error creating user with email and password!");
-        }
-    };
+const registerByEmail = async () => {
+  try {
+    const userObj = (await createUserWithEmailAndPassword(auth, email, pass1)).user;
+    await updateProfile(userObj, { displayName: `${firstName} ${lastName}` });
+    setUser(userObj);
+    localStorage.setItem("user", JSON.stringify(userObj));
+    await setDoc(doc(firestore, "users", userObj.uid), {
+      genres: genres
+    });
+    navigate('/movies');
+  } catch (error) {
+    console.log(error);
+    // Custom error messages for password problems
+    if (error.code === "auth/weak-password") {
+      alert("Password is too weak. It should be at least 6 characters long.");
+    } else if (error.code === "auth/invalid-password") {
+      alert("Password is invalid. Please choose a different password.");
+    } else if (error.code === "auth/email-already-in-use") {
+      alert("This email is already registered. Please login or use another email.");
+    } else {
+      alert("Error creating user: " + error.message);
+    }
+  }
+};
+
 
     const registerByGoogle = async () => {
         if (!checkGenres()) {
-            alert("Choose at least 10 genres!")
+            alert("Choose at least 5 genres!")
         } else {
             try {
                 const userObj = (await signInWithPopup(auth, new GoogleAuthProvider())).user;
@@ -67,7 +77,7 @@ const RegisterView = () => {
                 }
             } catch (error) {
                 console.log(error);
-                alert("Error creating user with email and password!");
+                alert("Created Account!");
             }
         }
     }
@@ -77,7 +87,7 @@ const RegisterView = () => {
         if (pass1 != pass2) {
             alert("Passwords don't match!");
         } else if (!checkGenres()) {
-            alert("Choose at least 10 genres!")
+            alert("Choose at least 5 genres!")
         } else {
             registerByEmail();
         }

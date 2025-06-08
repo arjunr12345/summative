@@ -22,7 +22,7 @@ const SettingsView = () => {
                 genresSelected += 1;
             }
         }
-        if (genresSelected < 10) {
+        if (genresSelected < 5) {
             return false;
         } else {
             return true;
@@ -33,7 +33,7 @@ const SettingsView = () => {
     const updateSettings = (e) => {
         e.preventDefault();
         if (!checkGenres()) {
-            alert("Choose at least 10 genres!");
+            alert("Choose at least 5 genres!");
         } else {
             if ((user.providerData[0])["providerId"] != "google.com") {
                 changeName(e.target.firstname.value, e.target.lastname.value);
